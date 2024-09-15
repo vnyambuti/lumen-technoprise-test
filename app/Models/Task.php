@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 
-class Tasks extends Model
+class Task extends Model
 {
-    protected $fillable = ['title', 'description', 'status'];
+    protected $fillable = ['title', 'description', 'status','due_date'];
     public static function boot()
     {
         parent::boot();

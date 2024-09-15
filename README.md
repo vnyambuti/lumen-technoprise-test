@@ -1,26 +1,127 @@
-# Lumen PHP Framework
+Task Management API
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
+This is a simple RESTful API built with Lumen that allows users to manage tasks. The API handles basic CRUD (Create, Read, Update, Delete) operations for tasks.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Features
 
-> **Note:** In the years since releasing Lumen, PHP has made a variety of wonderful performance improvements. For this reason, along with the availability of [Laravel Octane](https://laravel.com/docs/octane), we no longer recommend that you begin new projects with Lumen. Instead, we recommend always beginning new projects with [Laravel](https://laravel.com).
+Create new tasks
 
-## Official Documentation
+Retrieve a list of tasks (with filtering, sorting, and pagination)
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+Retrieve a single task by ID
 
-## Contributing
+Update existing tasks
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Delete tasks
 
-## Security Vulnerabilities
+Search tasks by title
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Requirements
 
-## License
+PHP >= 7.3
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Composer
+
+MySQL or another database supported by Laravel/Lumen
+
+Installation
+
+Clone the repository:
+
+Copygit clone https://github.com/yourusername/task-management-api.git
+
+cd task-management-api
+
+Install dependencies:
+
+Copycomposer install
+
+Create a .env file by copying .env.example:
+
+Copycp .env.example .env
+
+Update the .env file with your database credentials and other configuration settings.
+
+Generate an application key:
+
+Copyphp artisan key:generate
+
+Run database migrations:
+
+Copyphp artisan migrate
+
+Start the development server:
+
+Copyphp -S localhost:8000 -t public
+
+API Endpoints
+
+Get all tasks
+
+GET /api/tasks
+
+Query Parameters:
+
+search: Search tasks by title
+
+status: Filter by status (e.g., 'pending', 'completed')
+
+due\_date: Filter by due date ('overdue', 'today', 'this\_week', 'next\_week')
+
+sort\_by: Sort by field (currently supports 'due\_date')
+
+sort\_direction: Sort direction ('asc' or 'desc')
+
+page: Page number for pagination
+
+per\_page: Number of items per page (default: 15)
+
+Get a specific task
+
+GET /api/tasks/{id}
+
+Create a new task
+
+POST /api/tasks
+
+Body:
+
+jsonCopy{
+
+"title": "Task title",
+
+"description": "Task description",
+
+"status": "pending",
+
+"due\_date": "2023-12-31"
+
+}
+
+Update a task
+
+PUT /api/tasks/{id}
+
+Body: Same as create, with fields you want to update
+
+Delete a task
+
+DELETE /api/tasks/{id}
+
+Error Handling
+
+The API uses standard HTTP response codes to indicate the success or failure of requests. In case of errors, a JSON response with an error message will be returned.
+
+Testing
+
+To run the test suite, use the following command:
+
+Copy./vendor/bin/phpunit
+
+Contributing
+
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
+
+License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
 
 class TasksController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $query = Task::query();
            // Search by title
@@ -65,13 +66,18 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|unique:tasks',
+            'title' => 'required',
             'description' => 'required',
             'status' => 'required|in:pending,completed',
-            'due_date'=>'required|after:now'
+            'due_date'=>'required|date_format:Y-m-d|after:today'
         ]);
 
+
         try {
+           $task= Task::where('title',$request->title)->first();
+            if ($task) {
+                return response()->json(['error'=>'title has been taken taken'], 422);
+            }
             $task = Task::create($request->all());
             return response()->json($task, 201);
         } catch (\Illuminate\Validation\ValidationException $e) {

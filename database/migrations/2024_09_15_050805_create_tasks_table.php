@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->text('description');
             $table->enum('status', ['pending', 'completed']);
-            $table->date('due_date')->after('now');
+            $table->date('due_date');
             $table->timestamps();
         });
     }
